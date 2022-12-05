@@ -1,9 +1,15 @@
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
+import {
+  VApp,
+  VCard,
+  VCardItem,
+  VCardText,
+  VCardTitle,
+  VTab,
+  VTabs,
+} from "vuetify/components";
 
 export const vuetify = createVuetify({
-  components,
-  directives,
+  components: { VApp, VCard, VTab, VTabs, VCardItem, VCardText, VCardTitle },
 });
