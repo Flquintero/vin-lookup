@@ -18,4 +18,9 @@
 import { ref } from "vue";
 import { getVinLookupOptions } from "./utils/vin-lookup-tab-content";
 const tab = ref(0);
+
+defineExpose({
+  tab,
+  getVinLookupOptions,
+});
 </script>
