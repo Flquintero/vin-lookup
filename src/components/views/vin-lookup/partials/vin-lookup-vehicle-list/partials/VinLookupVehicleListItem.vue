@@ -56,7 +56,7 @@
   </v-expansion-panel>
 </template>
 <script setup lang="ts">
-import { reactive, onMounted, defineAsyncComponent } from "vue";
+import { reactive, onMounted, defineEmits, defineAsyncComponent } from "vue";
 
 // Stores
 
@@ -102,11 +102,19 @@ onMounted(() => {
 
 // Methods
 
+const emit = defineEmits(["close:listItem"]);
+
 const setInitialFormValues = function () {
-  currentVenicleInfo.formData = Object.assign(props.vehicle as IVehicleVinData);
+  currentVenicleInfo.formData = Object.assign(
+    currentVenicleInfo.formData,
+    props.vehicle as IVehicleVinData
+  );
 };
 
-const handleCloseVehicleItem = function () {};
+const handleCloseVehicleItem = function () {
+  setInitialFormValues();
+  emit("close:listItem");
+};
 
 const handleDeleteVehicle = function () {
   vehiclesStore.deleteVehicle(props.vehicleIndex as number);

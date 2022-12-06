@@ -39,11 +39,11 @@ const dialog = ref(false);
 
 // Methods
 
+const emit = defineEmits(["update:confirm"]);
+
 const handleDialogCancel = function () {
   dialog.value = false;
 };
-
-const emit = defineEmits(["update:confirm"]);
 
 const handleDialogConfirm = function () {
   emit("update:confirm");

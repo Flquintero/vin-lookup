@@ -7,18 +7,19 @@
     <p class="my-4">
       ACTIVE VEHICLES: {{ vehiclesStore.activeVehicles.length }}
     </p>
-    <v-expansion-panels class="mt-4">
+    <v-expansion-panels v-model="openListItems" class="mt-4">
       <VinLookupVehicleListItem
         v-for="(vehicle, index) in vehiclesStore.activeVehicles"
         :key="vehicle.VIN"
         v-bind="{ vehicle, vehicleIndex: index, vehiclesStore }"
+        @close:list-item="handleCloseListItem"
       />
     </v-expansion-panels>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 
 // Stores
 
@@ -31,10 +32,21 @@ const VinLookupVehicleListItem = defineAsyncComponent(
 );
 
 // Data
-
+const openListItems = ref(null);
 const vehiclesStore = useVehiclesStore();
+
+// Methods
+
+const handleCloseListItem = function () {
+  openListItems.value = null;
+};
 
 // Exposed Components/Data/Methods
 
-defineExpose({ VinLookupVehicleListItem, vehiclesStore });
+defineExpose({
+  VinLookupVehicleListItem,
+  handleCloseListItem,
+  vehiclesStore,
+  openListItems,
+});
 </script>
