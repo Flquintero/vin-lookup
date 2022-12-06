@@ -8,5 +8,8 @@ export const useVehiclesStore = defineStore("vehicles", () => {
   function addVehicle(vehicleResponse: IVehicleVinData) {
     activeVehicles.value.unshift(vehicleResponse);
   }
-  return { activeVehicles, addVehicle };
+  function deleteVehicle(vehicleIndex: number) {
+    activeVehicles.value.splice(vehicleIndex, 1);
+  }
+  return { activeVehicles, addVehicle, deleteVehicle };
 });

@@ -3,8 +3,12 @@
     <v-expansion-panel-title>
       <template #default>
         <div class="w-100 d-flex justify-space-between align-center">
-          <span>{{ vehicleIndex }}. {{ props.vehicle?.VIN }}</span>
-          <v-btn color="blue" variant="plain">DELETE</v-btn>
+          <span>{{ vehicleIndex + 1 }}. {{ props.vehicle?.VIN }}</span>
+          <DeleteConfirm
+            :item="props.vehicle?.VIN"
+            @update:confirm="handleDeleteVehicle"
+          >
+          </DeleteConfirm>
         </div>
       </template>
     </v-expansion-panel-title>
@@ -12,21 +16,22 @@
       <div class="v-row">
         <v-text-field
           class="v-col-xs-12 v-col-sm-4"
-          v-model="vehicleInfo.VIN"
+          v-model="currentVenicleInfo.formData.VIN"
           label="Vin #"
           variant="underlined"
+          disabled
         >
         </v-text-field>
         <v-select
           class="v-col-xs-12 v-col-sm-4"
-          v-model="vehicleInfo.ModelYear"
+          v-model="currentVenicleInfo.formData.ModelYear"
           label="Year"
           :items="modelYears"
           variant="underlined"
         ></v-select>
         <v-text-field
           class="v-col-xs-12 v-col-sm-4"
-          v-model="vehicleInfo.Make"
+          v-model="currentVenicleInfo.formData.Make"
           label="Make"
           variant="underlined"
         >
@@ -35,21 +40,28 @@
       <div class="v-row">
         <v-text-field
           class="v-col-xs-12 v-col-sm-4"
-          v-model="vehicleInfo.Model"
+          v-model="currentVenicleInfo.formData.Model"
           label="Model"
           variant="underlined"
         >
         </v-text-field>
       </div>
       <div class="d-flex justify-end">
-        <v-btn variant="plain">CANCEL</v-btn>
-        <v-btn color="blue" variant="plain">SAVE</v-btn>
+        <v-btn variant="plain" @click="handleCloseVehicleItem">CANCEL</v-btn>
+        <v-btn color="blue" @click="handleUpdateVehicle" variant="plain"
+          >SAVE</v-btn
+        >
       </div>
     </v-expansion-panel-text>
   </v-expansion-panel>
 </template>
 <script setup lang="ts">
-import { computed, defineEmits } from "vue";
+import { reactive, onMounted, defineAsyncComponent } from "vue";
+
+// Stores
+
+import { useVehiclesStore } from "@/stores/vehicles";
+
 // Types
 
 import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
@@ -58,27 +70,59 @@ import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
 
 import { modelYears } from "@/utils/data-lists/model-years-list";
 
+// Components
+
+const DeleteConfirm = defineAsyncComponent(
+  () => import("@/components/functional/DeleteConfirm.vue")
+);
+
 // Props
 
 const props = defineProps({
   vehicle: Object as () => IVehicleVinData,
-  vehicleIndex: Number,
+  vehicleIndex: { type: Number, required: true },
 });
 
-// computed
-
-const emit = defineEmits(["update:vehicle"]);
-
-const vehicleInfo = computed({
-  get: () => props.vehicle as IVehicleVinData,
-  set: (newVehicleInfo) => emit("update:vehicle", newVehicleInfo),
+// Data
+const vehiclesStore = useVehiclesStore();
+const currentVenicleInfo = reactive({
+  formData: {
+    VIN: "",
+    ModelYear: "",
+    Make: "",
+    Model: "",
+  },
 });
+
+// Lifecycle hooks
+
+onMounted(() => {
+  setInitialFormValues();
+});
+
+// Methods
+
+const setInitialFormValues = function () {
+  currentVenicleInfo.formData = Object.assign(props.vehicle as IVehicleVinData);
+};
+
+const handleCloseVehicleItem = function () {};
+
+const handleDeleteVehicle = function () {
+  vehiclesStore.deleteVehicle(props.vehicleIndex as number);
+};
+
+const handleUpdateVehicle = function () {};
 
 // Exposed Components/Data/Methods
 
 defineExpose({
+  DeleteConfirm,
   modelYears,
   props,
-  vehicleInfo,
+  currentVenicleInfo,
+  handleCloseVehicleItem,
+  handleDeleteVehicle,
+  handleUpdateVehicle,
 });
 </script>

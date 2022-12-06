@@ -10,6 +10,7 @@ import {
   VCardItem,
   VCardText,
   VCardTitle,
+  VCardActions,
   VTab,
   VTabs,
   VTextField,
@@ -21,6 +22,7 @@ import {
   VExpansionPanelTitle,
   VExpansionPanelText,
   VSelect,
+  VDialog,
 } from "vuetify/components";
 
 export const vuetify = createVuetify({
@@ -32,6 +34,7 @@ export const vuetify = createVuetify({
     VCardItem,
     VCardText,
     VCardTitle,
+    VCardActions,
     VCol,
     VTextField,
     VIcon,
@@ -42,5 +45,6 @@ export const vuetify = createVuetify({
     VExpansionPanelTitle,
     VExpansionPanelText,
     VSelect,
+    VDialog,
   },
 });

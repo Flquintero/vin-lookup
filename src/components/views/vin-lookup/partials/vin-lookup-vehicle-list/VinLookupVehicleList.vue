@@ -11,7 +11,7 @@
       <VinLookupVehicleListItem
         v-for="(vehicle, index) in vehiclesStore.activeVehicles"
         :key="vehicle.VIN"
-        v-bind="{ vehicle, vehicleIndex: index + 1 }"
+        v-bind="{ vehicle, vehicleIndex: index, vehiclesStore }"
       />
     </v-expansion-panels>
   </div>
