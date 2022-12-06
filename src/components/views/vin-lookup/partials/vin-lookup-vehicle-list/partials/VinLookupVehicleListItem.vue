@@ -21,7 +21,7 @@
           class="v-col-xs-12 v-col-sm-4"
           v-model="vehicleInfo.ModelYear"
           label="Year"
-          :items="yearsList"
+          :items="modelYears"
           variant="underlined"
         ></v-select>
         <v-text-field
@@ -56,7 +56,7 @@ import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
 
 // Data Helpers
 
-import { yearsList } from "@/utils/years-list";
+import { modelYears } from "@/utils/data-lists/model-years-list";
 
 // Props
 
@@ -77,7 +77,7 @@ const vehicleInfo = computed({
 // Exposed Components/Data/Methods
 
 defineExpose({
-  yearsList,
+  modelYears,
   props,
   vehicleInfo,
 });
