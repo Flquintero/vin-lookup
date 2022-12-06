@@ -15,6 +15,7 @@ import {
   VTextField,
   VIcon,
   VBtn,
+  VAlert,
 } from "vuetify/components";
 
 export const vuetify = createVuetify({
@@ -30,5 +31,6 @@ export const vuetify = createVuetify({
     VTextField,
     VIcon,
     VBtn,
+    VAlert,
   },
 });

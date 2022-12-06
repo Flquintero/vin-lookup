@@ -1,6 +1,14 @@
 <template>
   <div>
     <p>Enter a VIN and we'll use our data partner to search for your vehicle</p>
+    <!-- put this alert component here in the interest of time but look into making it a globally accesible components, through creating a plugin and maybe toggling it with state or with a global method/variable -->
+    <v-alert
+      class="my-2"
+      v-if="isShowingVinLookupAlert"
+      type="error"
+      :text="vinLookupAlert"
+      closable
+    ></v-alert>
     <v-text-field
       class="v-col-xs-12 v-col-sm-6 mt-1"
       v-model.trim="vinNumber"
@@ -10,9 +18,9 @@
       variant="underlined"
       color="blue"
     ></v-text-field>
-    <div class="d-flex justify-end">
+    <div class="d-flex justify-center justify-sm-end">
       <v-btn
-        class="mx-10 my-5"
+        class="mx-sm-10 my-5"
         @click="handleLookupVehicleClick"
         :disabled="!vinNumber || isSearching"
         :loading="isSearching"
@@ -29,6 +37,8 @@ import type { IApi } from "../../../types/api-repository/interfaces"; // to do: 
 const VinLookupRepository = (inject("$apiRepository") as IApi).get("vinLookup");
 const isSearching = ref(false);
 const vinNumber = ref("");
+const vinLookupAlert = ref("");
+const isShowingVinLookupAlert = ref(false);
 
 const handleLookupVehicleClick = async function () {
   try {
@@ -38,11 +48,13 @@ const handleLookupVehicleClick = async function () {
     );
     const { ErrorCode, ErrorText } = vinResponse.Results[0];
     if (ErrorCode !== "0") {
-      console.log("Error", ErrorText);
-      //show error alert with error text
+      showVinLookupAlert(ErrorText);
     }
   } catch (error) {
-    // show error alert
+    showVinLookupAlert(
+      "There was an error processing your request. Please try again or contact support."
+    );
+    // to do: add error reporting here
   } finally {
     toggleIsSearching();
   }
@@ -52,12 +64,22 @@ const toggleIsSearching = function () {
   isSearching.value = !isSearching.value;
 };
 
+const showVinLookupAlert = function (errorText: string) {
+  vinLookupAlert.value = errorText;
+  isShowingVinLookupAlert.value = true;
+  setTimeout(() => {
+    isShowingVinLookupAlert.value = false;
+  }, 10000);
+};
+
 const handleClearVinNumber = function () {
   vinNumber.value = "";
 };
 
 defineExpose({
   vinNumber,
+  vinLookupAlert,
+  isShowingVinLookupAlert,
   handleLookupVehicleClick,
   handleClearVinNumber,
 });
