@@ -28,25 +28,32 @@
         >LOOKUP VEHICLE</v-btn
       >
     </div>
+    <VinLookupVehicleList />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { ref, inject, defineAsyncComponent } from "vue";
 import type { IApi } from "../../../types/api-repository/interfaces"; // to do: Why didn't it read alias
+const VinLookupVehicleList = defineAsyncComponent(
+  () => import("./partials/VinLookupVehicleList.vue")
+);
+
 const VinLookupRepository = (inject("$apiRepository") as IApi).get("vinLookup");
 const isSearching = ref(false);
 const vinNumber = ref("");
 const vinLookupAlert = ref("");
 const isShowingVinLookupAlert = ref(false);
+const vehicleResult = ref(null);
 
 const handleLookupVehicleClick = async function () {
   try {
     toggleIsSearching();
-    let vinResponse = await VinLookupRepository.getSingleVinNumber(
+    let vinLookupResponse = await VinLookupRepository.getSingleVinNumber(
       vinNumber.value
     );
-    const { ErrorCode, ErrorText } = vinResponse.Results[0];
+    const { ErrorCode, ErrorText } = vinLookupResponse.Results[0];
+    vehicleResult.value = vinLookupResponse.Results[0];
     if (ErrorCode !== "0") {
       showVinLookupAlert(ErrorText);
     }
@@ -80,7 +87,9 @@ defineExpose({
   vinNumber,
   vinLookupAlert,
   isShowingVinLookupAlert,
+  vehicleResult,
   handleLookupVehicleClick,
   handleClearVinNumber,
+  VinLookupVehicleList,
 });
 </script>

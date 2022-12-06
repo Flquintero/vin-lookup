@@ -16,6 +16,11 @@ import {
   VIcon,
   VBtn,
   VAlert,
+  VExpansionPanels,
+  VExpansionPanel,
+  VExpansionPanelTitle,
+  VExpansionPanelText,
+  VSelect,
 } from "vuetify/components";
 
 export const vuetify = createVuetify({
@@ -32,5 +37,10 @@ export const vuetify = createVuetify({
     VIcon,
     VBtn,
     VAlert,
+    VExpansionPanels,
+    VExpansionPanel,
+    VExpansionPanelTitle,
+    VExpansionPanelText,
+    VSelect,
   },
 });
