@@ -1,10 +1,10 @@
 export interface IApi {
   [property: string]: any;
-  vin: IVinRepository;
+  vinLookup: IVinLookupRepository;
 }
 
-export interface IVinRepository {
-  decodeVin(vinNumber: string): Promise<IVinNumberApiResponse>;
+export interface IVinLookupRepository {
+  getSingleVinNumber(vinNumber: string): Promise<IVinNumberApiResponse>;
 }
 
 export interface IVinNumberApiResponse {

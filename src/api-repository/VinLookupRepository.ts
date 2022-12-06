@@ -1,5 +1,4 @@
-import { $apiRequest } from "@/utils/api";
-
+import { $apiRequest } from "@/utils/api-request";
 const BASE_PATH = "https://vpic.nhtsa.dot.gov/api/vehicles";
 
 export default {
