@@ -71,6 +71,7 @@ const handleLookupVehicleClick = async function () {
     const vehicleObject = vinLookupResponse.Results[0];
     if (!hasError(vehicleObject)) {
       vehiclesStore.addVehicle(vehicleObject);
+      handleClearVinNumber();
     }
   } catch (error) {
     console.log("error", error);
