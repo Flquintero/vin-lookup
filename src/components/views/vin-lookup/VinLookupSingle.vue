@@ -89,7 +89,7 @@ const toggleIsSearching = function () {
 const hasError = function (vehicleResponse: IVehicleVinData) {
   const { ErrorCode, ErrorText } = vehicleResponse;
   if (ErrorCode !== "0") {
-    showVinLookupAlert(ErrorText);
+    showVinLookupAlert(ErrorText as string);
     return true;
   }
   return false;

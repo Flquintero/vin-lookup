@@ -112,7 +112,11 @@ const handleDeleteVehicle = function () {
   vehiclesStore.deleteVehicle(props.vehicleIndex as number);
 };
 
-const handleUpdateVehicle = function () {};
+const handleUpdateVehicle = function () {
+  const vehicleIndex = props.vehicleIndex;
+  const newVehicleInflo = currentVenicleInfo.formData;
+  vehiclesStore.updateVehicle(vehicleIndex, newVehicleInflo);
+};
 
 // Exposed Components/Data/Methods
 
