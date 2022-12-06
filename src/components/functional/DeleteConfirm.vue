@@ -29,9 +29,9 @@ import { ref, defineEmits, defineProps } from "vue";
 
 //Props
 
-const props = defineProps({
-  item: String,
-});
+const props = defineProps<{
+  item?: string;
+}>();
 
 // Data
 

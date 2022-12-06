@@ -5,7 +5,7 @@
         <div class="w-100 d-flex justify-space-between align-center">
           <span>{{ vehicleIndex + 1 }}. {{ props.vehicle?.VIN }}</span>
           <DeleteConfirm
-            :item="props.vehicle?.VIN"
+            :item="props.vehicle.VIN"
             @update:confirm="handleDeleteVehicle"
           >
           </DeleteConfirm>
@@ -78,10 +78,10 @@ const DeleteConfirm = defineAsyncComponent(
 
 // Props
 
-const props = defineProps({
-  vehicle: Object as () => IVehicleVinData,
-  vehicleIndex: { type: Number, required: true },
-});
+const props = defineProps<{
+  vehicle: IVehicleVinData;
+  vehicleIndex: number;
+}>();
 
 // Data
 const vehiclesStore = useVehiclesStore();
