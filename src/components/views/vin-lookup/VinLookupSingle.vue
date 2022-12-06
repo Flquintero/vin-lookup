@@ -36,7 +36,7 @@
 import { ref, inject, defineAsyncComponent } from "vue";
 import type { IApi } from "../../../types/api-repository/interfaces"; // to do: Why didn't it read alias
 const VinLookupVehicleList = defineAsyncComponent(
-  () => import("./partials/VinLookupVehicleList.vue")
+  () => import("./partials/vin-lookup-vehicle-list/VinLookupVehicleList.vue")
 );
 
 const VinLookupRepository = (inject("$apiRepository") as IApi).get("vinLookup");
