@@ -1,8 +1,8 @@
-export const yearsList = (startYear: number) => {
+export const yearsList: number[] = [2019];
+
+export const buildYearsList = (startYear: number) => {
   const currentYear = new Date().getFullYear();
-  const years = [];
   while (startYear <= currentYear) {
-    years.unshift(startYear++);
+    yearsList.unshift(startYear++);
   }
-  return years;
 };

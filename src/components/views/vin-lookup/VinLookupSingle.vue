@@ -28,16 +28,28 @@
         >LOOKUP VEHICLE</v-btn
       >
     </div>
-    <VinLookupVehicleList />
+    <VinLookupVehicleList v-if="vehiclesStore.activeVehicles.length" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, inject, defineAsyncComponent } from "vue";
+
+// Stores
+
+import { useVehiclesStore } from "../../../stores/vehicles";
+
+// Types
+
 import type { IApi } from "../../../types/api-repository/interfaces"; // to do: Why didn't it read alias
+
+// Components
+
 const VinLookupVehicleList = defineAsyncComponent(
   () => import("./partials/vin-lookup-vehicle-list/VinLookupVehicleList.vue")
 );
+
+// Data
 
 const VinLookupRepository = (inject("$apiRepository") as IApi).get("vinLookup");
 const isSearching = ref(false);
@@ -45,19 +57,22 @@ const vinNumber = ref("");
 const vinLookupAlert = ref("");
 const isShowingVinLookupAlert = ref(false);
 const vehicleResult = ref(null);
+const vehiclesStore = useVehiclesStore();
+
+// Methods
 
 const handleLookupVehicleClick = async function () {
   try {
     toggleIsSearching();
-    let vinLookupResponse = await VinLookupRepository.getSingleVinNumber(
+    const vinLookupResponse = await VinLookupRepository.getSingleVinNumber(
       vinNumber.value
     );
-    const { ErrorCode, ErrorText } = vinLookupResponse.Results[0];
-    vehicleResult.value = vinLookupResponse.Results[0];
-    if (ErrorCode !== "0") {
-      showVinLookupAlert(ErrorText);
+    const vehicleObject = vinLookupResponse.Results[0];
+    if (!hasError(vehicleObject)) {
+      vehiclesStore.addVehicle(vehicleObject);
     }
   } catch (error) {
+    console.log("error", error);
     showVinLookupAlert(
       "There was an error processing your request. Please try again or contact support."
     );
@@ -69,6 +84,15 @@ const handleLookupVehicleClick = async function () {
 
 const toggleIsSearching = function () {
   isSearching.value = !isSearching.value;
+};
+
+const hasError = function (vehicleResponse: any) {
+  const { ErrorCode, ErrorText } = vehicleResponse;
+  if (ErrorCode !== "0") {
+    showVinLookupAlert(ErrorText);
+    return true;
+  }
+  return false;
 };
 
 const showVinLookupAlert = function (errorText: string) {
@@ -83,13 +107,16 @@ const handleClearVinNumber = function () {
   vinNumber.value = "";
 };
 
+// Exposed Components/Data/Methods
+
 defineExpose({
+  VinLookupVehicleList,
+  vehiclesStore,
   vinNumber,
   vinLookupAlert,
   isShowingVinLookupAlert,
   vehicleResult,
   handleLookupVehicleClick,
   handleClearVinNumber,
-  VinLookupVehicleList,
 });
 </script>
