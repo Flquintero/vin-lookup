@@ -52,11 +52,11 @@
 import { computed, defineEmits } from "vue";
 // Types
 
-import type { IVehicleVinData } from "../../../../../../types/vin-lookup/interfaces";
+import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
 
 // Data Helpers
 
-import { yearsList } from "../../../../../../utils/years-list"; // to do: see why alias is not picking up;
+import { yearsList } from "@/utils/years-list";
 
 // Props
 

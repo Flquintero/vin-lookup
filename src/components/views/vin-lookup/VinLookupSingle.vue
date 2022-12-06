@@ -37,11 +37,12 @@ import { ref, inject, defineAsyncComponent } from "vue";
 
 // Stores
 
-import { useVehiclesStore } from "../../../stores/vehicles";
+import { useVehiclesStore } from "@/stores/vehicles";
 
 // Types
 
-import type { IApi } from "../../../types/api-repository/interfaces"; // to do: Why didn't it read alias
+import type { IApi } from "@/types/api-repository/interfaces";
+import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
 
 // Components
 
@@ -76,7 +77,6 @@ const handleLookupVehicleClick = async function () {
     showVinLookupAlert(
       "There was an error processing your request. Please try again or contact support."
     );
-    // to do: add error reporting here
   } finally {
     toggleIsSearching();
   }
@@ -86,7 +86,7 @@ const toggleIsSearching = function () {
   isSearching.value = !isSearching.value;
 };
 
-const hasError = function (vehicleResponse: any) {
+const hasError = function (vehicleResponse: IVehicleVinData) {
   const { ErrorCode, ErrorText } = vehicleResponse;
   if (ErrorCode !== "0") {
     showVinLookupAlert(ErrorText);
