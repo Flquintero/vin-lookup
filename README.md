@@ -2,11 +2,13 @@
 
 This is app allows you to enter a VIN number an lookup the vehicle information using the NHTSA's vPIC API.
 
-It is built with Vue 3 using TypeScript and Pinia.
+It is built with Vue 3 using TypeScript, Pinia, Vuetify and Vitest.
+
+Although a big fan of SASS. Decided to leverage Vuetify as much as possible and use their utility classes and helpers.
 
 ## Working Demo
 
-https://vin-lookup-one.vercel.app/vin-lookup
+https://vin-lookup-one.vercel.app
 
 ## Running Project Locally
 
