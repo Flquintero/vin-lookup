@@ -8,7 +8,7 @@ import VinLookupIndex from "@/views/vin-lookup/VinLookupIndex.vue";
 import VinLookupSingle from "../views/vin-lookup/VinLookupSingle.vue";
 import ResizeObserver from "../__mocks__/ResizeObserver";
 
-describe("VinLookupIndex Implementation Test", () => {
+describe("VinLookupIndex", () => {
   const vuetify = createVuetify({
     components,
     directives,
@@ -48,21 +48,24 @@ describe("VinLookupIndex Implementation Test", () => {
     wrapper.unmount();
   });
 
-  it("initializes with correct components and content", () => {
+  it("initializes card component", () => {
     // Card Component that wraps everything
     const card = wrapper.findComponent(components.VCard);
     expect(card.exists()).toBe(true);
+  });
 
-    // Card Title
+  it("initializes card title with correct content", () => {
     const cardTitle = wrapper.findComponent(components.VCardTitle);
     expect(cardTitle.exists()).toBe(true);
     expect(cardTitle.text()).toBe("1. Add Vehicles");
+  });
 
-    // Tabs
-    // Main Tabs Wrapper
+  it("initializes tabs component", () => {
     const tabs = wrapper.findComponent(components.VTabs);
     expect(tabs.exists()).toBe(true);
-    // Single Tab Component
+  });
+
+  it("initializes all required tab components with content", () => {
     const tab = wrapper.findComponent(components.VTab);
     expect(tab.exists()).toBe(true);
     const allTabsRendered = wrapper.findAllComponents(components.VTab);
@@ -70,12 +73,12 @@ describe("VinLookupIndex Implementation Test", () => {
     expect(allTabsRendered[0].text()).toMatch("Single Vin");
     expect(allTabsRendered[1].text()).toMatch("Bulk Vin");
     expect(allTabsRendered[2].text()).toMatch("Manual Vin");
+  });
 
-    // Card Body
-    // Component that holds the Dynamic Component
+  it("initializes card text component with correct content", () => {
     const cardText = wrapper.findComponent(components.VCardText);
     expect(cardText.exists()).toBe(true);
-    // Initial Dynamic Component to be rendered
+    // Initial Dynamic Component content to be rendered
     const singleVin = wrapper.findComponent(VinLookupSingle);
     expect(singleVin.exists()).toBe(true);
   });
