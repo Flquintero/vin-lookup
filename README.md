@@ -11,8 +11,7 @@ https://vin-lookup-one.vercel.app/vin-lookup
 ## Running Project Locally
 
 ```sh
-   npm install
-
+npm install
 ```
 
 ### Compile and Hot-Reload for Development
