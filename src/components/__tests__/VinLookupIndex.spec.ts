@@ -22,6 +22,7 @@ describe("VinLookupIndex", () => {
       data() {
         return {
           tab: 0,
+          tabItems: ["Single Vin", "Bulk Vin", "Manual Vin"],
         };
       },
       global: {
@@ -45,7 +46,7 @@ describe("VinLookupIndex", () => {
 
   // TEARDOWN - run after to each unit test
   afterEach(() => {
-    wrapper.unmount();
+    wrapper?.unmount();
   });
 
   it("initializes card component", () => {

@@ -15,7 +15,6 @@ describe("VinLookupVehicleList", () => {
   });
 
   let wrapper: any = null;
-  let store: any = null;
 
   // SETUP - run before to each unit test
   beforeEach(() => {
@@ -42,7 +41,6 @@ describe("VinLookupVehicleList", () => {
         resize: ResizeObserver,
       },
     });
-    store = useVehiclesStore();
   });
 
   // TEARDOWN - run after to each unit test

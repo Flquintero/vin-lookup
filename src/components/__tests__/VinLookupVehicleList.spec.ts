@@ -15,16 +15,16 @@ describe("VinLookupVehicleList", () => {
   });
 
   let wrapper: any = null;
-  let store: any = null;
 
   // SETUP - run before to each unit test
   beforeEach(() => {
     wrapper = mount(VinLookupVehicleList, {
-      //   data() {
-      //     return {
-      //       tab: 0,
-      //     };
-      //   },
+      data() {
+        return {
+          openListItems: null,
+          vehiclesStore: useVehiclesStore(),
+        };
+      },
       global: {
         plugins: [
           vuetify,
@@ -42,7 +42,6 @@ describe("VinLookupVehicleList", () => {
         resize: ResizeObserver,
       },
     });
-    store = useVehiclesStore();
   });
 
   // TEARDOWN - run after to each unit test
@@ -50,5 +49,17 @@ describe("VinLookupVehicleList", () => {
     wrapper.unmount();
   });
 
-  it("initializes with correct components and content", () => {});
+  it("initializes paragraphs with correct content", () => {
+    const paragraphsRendered = wrapper.findAll("p");
+    expect(paragraphsRendered.length).toBe(2);
+    const topDescriptionParagraph = paragraphsRendered[0];
+    expect(topDescriptionParagraph.text()).toBe(
+      "To make changes to the vehicles below, expand the row of the vehicle you wish to edit"
+    );
+    const activeVehiclesCount = paragraphsRendered[1];
+    expect(activeVehiclesCount.text()).toContain("ACTIVE VEHICLES");
+    expect(activeVehiclesCount.text()).toContain(
+      wrapper.vm.$data.vehiclesStore.activeVehicles.length
+    );
+  });
 });
