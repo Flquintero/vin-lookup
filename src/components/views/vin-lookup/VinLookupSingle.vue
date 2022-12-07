@@ -28,7 +28,7 @@
         >LOOKUP VEHICLE</v-btn
       >
     </div>
-    <VinLookupVehicleList v-if="vehiclesStore.activeVehicles.length" />
+    <VinLookupVehicleList v-if="vehiclesStore?.activeVehicles.length" />
   </div>
 </template>
 
@@ -52,7 +52,9 @@ const VinLookupVehicleList = defineAsyncComponent(
 
 // Data
 
-const VinLookupRepository = (inject("$apiRepository") as IApi).get("vinLookup");
+const VinLookupRepository = (inject("$apiRepository") as IApi)?.get(
+  "vinLookup"
+);
 const isSearching = ref(false);
 const vinNumber = ref("");
 const vinLookupAlert = ref("");
