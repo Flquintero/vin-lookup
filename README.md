@@ -2,7 +2,7 @@
 
 This app allows you to enter a VIN number and lookup the vehicle's information using the [NHTSA's vPIC API](https://vpic.nhtsa.dot.gov/api/).
 
-It is built with Vue 3 using TypeScript, Pinia, Vuetify and Vitest.
+It is built with Vue 3 using Vite, TypeScript, Pinia, Vuetify and Vitest.
 
 Although a big fan of SASS, I decided to leverage Vuetify as much as possible and use only their utility classes and helpers.
 
