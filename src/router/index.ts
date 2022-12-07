@@ -6,11 +6,6 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      redirect: "/vin-lookup",
-    },
-    {
-      path: "/vin-lookup",
-      name: "vin-lookup",
       component: () => import("@/views/vin-lookup/VinLookupIndex.vue"),
     },
   ],
