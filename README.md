@@ -1,6 +1,6 @@
 ## Project Description
 
-This app allows you to enter a VIN number and lookup the vehicle's information using the NHTSA's vPIC API.
+This app allows you to enter a VIN number and lookup the vehicle's information using the [NHTSA's vPIC API](https://vpic.nhtsa.dot.gov/api/).
 
 It is built with Vue 3 using TypeScript, Pinia, Vuetify and Vitest.
 
