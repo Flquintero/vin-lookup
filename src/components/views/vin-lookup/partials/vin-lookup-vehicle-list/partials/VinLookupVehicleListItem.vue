@@ -56,7 +56,7 @@
   </v-expansion-panel>
 </template>
 <script setup lang="ts">
-import { reactive, onMounted, defineEmits, defineAsyncComponent } from "vue";
+import { reactive, onMounted, defineAsyncComponent } from "vue";
 
 // Stores
 

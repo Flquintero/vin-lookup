@@ -6,6 +6,7 @@ import { useVehiclesStore } from "@/stores/vehicles";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import VinLookupVehicleList from "../views/vin-lookup/partials/vin-lookup-vehicle-list/VinLookupVehicleList.vue";
+import VinLookupVehicleListItem from "../views/vin-lookup/partials/vin-lookup-vehicle-list/partials/VinLookupVehicleListItem.vue";
 import ResizeObserver from "../__mocks__/ResizeObserver";
 
 describe("VinLookupVehicleList", () => {
@@ -59,6 +60,25 @@ describe("VinLookupVehicleList", () => {
     const activeVehiclesCount = paragraphsRendered[1];
     expect(activeVehiclesCount.text()).toContain("ACTIVE VEHICLES");
     expect(activeVehiclesCount.text()).toContain(
+      wrapper.vm.$data.vehiclesStore.activeVehicles.length
+    );
+  });
+
+  it("initializes the expansion panels component with the correct v-model variable", () => {
+    const vehicleListExpansionPanels = wrapper.findComponent(
+      components.VExpansionPanels
+    );
+    expect(vehicleListExpansionPanels.exists()).toBe(true);
+    expect(vehicleListExpansionPanels.props().modelValue).toBe(
+      wrapper.vm.$data.openListItems
+    );
+  });
+
+  it("checks amount of vehicles rendered in list to match active vehicles in store", () => {
+    const allListItemsRendered = wrapper.findAllComponents(
+      VinLookupVehicleListItem
+    );
+    expect(allListItemsRendered.length).toBe(
       wrapper.vm.$data.vehiclesStore.activeVehicles.length
     );
   });
