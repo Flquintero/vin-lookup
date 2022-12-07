@@ -5,6 +5,7 @@ import type { IVehicleVinData } from "@/types/vin-lookup/interfaces";
 
 export const useVehiclesStore = defineStore("vehicles", () => {
   const activeVehicles = ref([] as IVehicleVinData[]);
+
   function addVehicle(vehicleResponse: IVehicleVinData) {
     activeVehicles.value.unshift(vehicleResponse);
   }
@@ -16,6 +17,7 @@ export const useVehiclesStore = defineStore("vehicles", () => {
     const updatedVehicleInfo = Object.assign(targetObject, newVehicleInfo);
     activeVehicles.value.splice(vehicleIndex, 1, updatedVehicleInfo);
   }
+
   function deleteVehicle(vehicleIndex: number) {
     activeVehicles.value.splice(vehicleIndex, 1);
   }

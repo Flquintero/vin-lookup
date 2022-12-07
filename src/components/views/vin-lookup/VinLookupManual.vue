@@ -1,5 +1,5 @@
 <template>
   <div class="mt-12 text-center text-blue">
-    <span>MANUAL VIN COMMING SOON</span>
+    <span>MANUAL VIN COMING SOON</span>
   </div>
 </template>
