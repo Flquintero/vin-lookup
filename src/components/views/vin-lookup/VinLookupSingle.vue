@@ -75,7 +75,8 @@ const handleLookupVehicleClick = async function () {
       vehiclesStore.addVehicle(vehicleObject);
       handleClearVinNumber();
     }
-  } catch (error) {
+    console.log(vehicleObject);
+  } catch (error: any) {
     console.log("error", error);
     showVinLookupAlert(
       "There was an error processing your request. Please try again or contact support."
