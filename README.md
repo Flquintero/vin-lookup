@@ -4,7 +4,7 @@ This app allows you to enter a VIN number and lookup the vehicle's information u
 
 It is built with Vue 3 using TypeScript, Pinia, Vuetify and Vitest.
 
-Although a big fan of SASS, I Decided to leverage Vuetify as much as possible and use only their utility classes and helpers.
+Although a big fan of SASS, I decided to leverage Vuetify as much as possible and use only their utility classes and helpers.
 
 ## Working Demo
 
